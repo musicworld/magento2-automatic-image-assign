@@ -1,31 +1,63 @@
-The README.md file content is generated automatically, see [Magento module README.md](https://github.com/magento/devdocs/wiki/Magento-module-README.md) for more information.
 
-# Musicworld_AutomaticImageAssign module
+# Musicworld_AutomaticImageAssign
 
+Dieses Magento 2 Modul bietet drei Konsolenbefehle, um Produktbilder zu verwalten: automatische Zuweisung von Basis-, Thumbnail- und kleinen Bildern, das Bereinigen von Produkten mit fehlenden Bildern und das Sortieren von Produktbildern, bei denen Videos nach hinten verschoben werden, wenn sie die kleinste Position haben.
 
+## Installation
 
-## Installation details
+1. Lege das Modul-Verzeichnis unter `app/code/Musicworld/AutomaticImageAssign` an.
+2. Kopiere die Moduldateien in dieses Verzeichnis.
+3. Führe die folgenden Befehle aus, um das Modul zu aktivieren und die Abhängigkeiten zu aktualisieren:
 
-For information about a module installation in Magento 2, see [Enable or disable modules](https://devdocs.magento.com/guides/v2.4/install-gde/install/cli/install-cli-subcommands-enable.html).
+   ```bash
+   php bin/magento module:enable Musicworld_AutomaticImageAssign
+   php bin/magento setup:upgrade
+   ```
 
-## Extensibility
+## Verwendung
 
-Extension developers can interact with the Musicworld_AutomaticImageAssign module. For more information about the Magento extension mechanism, see [Magento plug-ins](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/plugins.html).
+### 1. `musicworld:assign-images`
 
-[The Magento dependency injection mechanism](https://devdocs.magento.com/guides/v2.4/extension-dev-guide/depend-inj.html) enables you to override the functionality of the Musicworld_AutomaticImageAssign module.
+Dieser Befehl weist Produkte, die noch kein Basis-, Thumbnail- oder kleines Bild haben, das erste verfügbare Bild aus der Mediengalerie zu.
 
-### Layouts
+```bash
+php bin/magento musicworld:assign-images [--save]
+```
 
-The module introduces layout handles in the `view/adminhtml/layout` directory.
+- **Optionen**:
+    - `--save`: Speichert das Produkt nach der Zuweisung der Bilder. Ohne diese Option wird der Befehl im "Dry Run"-Modus ausgeführt und zeigt nur die Änderungen an.
 
-For more information about a layout in Magento 2, see the [Layout documentation](https://devdocs.magento.com/guides/v2.4/frontend-dev-guide/layouts/layout-overview.html).
+### 2. `musicworld:clean-missing-images`
 
-### UI components
+Dieser Befehl bereinigt Produkte, bei denen eines oder mehrere der Bilder (Basis-, Thumbnail- oder kleines Bild) fehlen, und setzt die fehlenden Bilder auf `no_selection`.
 
-You can extend product and category updates using the UI components located in the `view/adminhtml/ui_component` directory.
+```bash
+php bin/magento musicworld:clean-missing-images [--save]
+```
 
-For information about a UI component in Magento 2, see [Overview of UI components](https://devdocs.magento.com/guides/v2.4/ui_comp_guide/bk-ui_comps.html).
+- **Optionen**:
+    - `--save`: Speichert das Produkt nach der Bereinigung der fehlenden Bilder. Ohne diese Option wird der Befehl im "Dry Run"-Modus ausgeführt und zeigt nur die geplanten Änderungen an.
 
-## Additional information
+### 3. `musicworld:sort-product-images`
 
-For information about significant changes in patch releases, see [Release information](https://devdocs.magento.com/guides/v2.4/release-notes/bk-release-notes.html).
+Dieser Befehl sortiert die Bilder eines Produkts und verschiebt Videos ans Ende der Reihenfolge, wenn sie die kleinste Positionsnummer haben.
+
+```bash
+php bin/magento musicworld:sort-product-images
+```
+
+- Es gibt keine zusätzlichen Optionen für diesen Befehl. Produkte mit Videos werden bearbeitet, und wenn Änderungen erforderlich sind, wird das Produkt nach der Aktualisierung gespeichert.
+
+## Beispiel
+
+- Um Bilder zu Produkten ohne Zuweisung zuweisen und die Änderungen direkt zu speichern, führe folgendes aus:
+
+  ```bash
+  php bin/magento musicworld:assign-images --save
+  ```
+
+- Um Produkte mit fehlenden Bildern zu bereinigen, ohne die Änderungen zu speichern:
+
+  ```bash
+  php bin/magento musicworld:clean-missing-images
+  ```
