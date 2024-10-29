@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="musicworld:assign-images" xsi:type="object">Musicworld\AutomaticImageAssign\Console\Command\AssignImagesCommand</item>
+                <item name="musicworld:clean-missing-images" xsi:type="object">Musicworld\AutomaticImageAssign\Console\Command\CleanMissingImagesCommand</item>
+                <item name="musicworld:sort-images" xsi:type="object">Musicworld\AutomaticImageAssign\Console\Command\SortProductImagesCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Musicworld\AutomaticImageAssign\Console\Command\AssignImagesCommand">
+        <arguments>
+            <argument name="state" xsi:type="object">Magento\Framework\App\State</argument>
+            <argument name="productRepository" xsi:type="object">Magento\Catalog\Model\ProductRepository</argument>
+            <argument name="mediaConfig" xsi:type="object">Magento\Catalog\Model\Product\Media\Config</argument>
+            <argument name="searchCriteriaBuilder" xsi:type="object">Magento\Framework\Api\SearchCriteriaBuilder</argument>
+            <argument name="filterBuilder" xsi:type="object">Magento\Framework\Api\FilterBuilder</argument>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem</argument>
+            <argument name="sortOrderBuilder" xsi:type="object">Magento\Framework\Api\SortOrderBuilder</argument>
+        </arguments>
+    </type>
+
+    <type name="Musicworld\AutomaticImageAssign\Console\Command\CleanMissingImagesCommand">
+        <arguments>
+            <argument name="state" xsi:type="object">Magento\Framework\App\State</argument>
+            <argument name="productRepository" xsi:type="object">Magento\Catalog\Model\ProductRepository</argument>
+            <argument name="searchCriteriaBuilder" xsi:type="object">Magento\Framework\Api\SearchCriteriaBuilder</argument>
+            <argument name="filterBuilder" xsi:type="object">Magento\Framework\Api\FilterBuilder</argument>
+            <argument name="sortOrderBuilder" xsi:type="object">Magento\Framework\Api\SortOrderBuilder</argument>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem</argument>
+        </arguments>
+    </type>
+
+</config>
