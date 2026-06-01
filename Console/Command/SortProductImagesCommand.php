@@ -48,7 +48,7 @@ class SortProductImagesCommand extends Command
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) :int
     {
         $this->state->setAreaCode('adminhtml');
         $batchSize = 1000;
